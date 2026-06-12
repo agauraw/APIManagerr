@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { usePlugins } from '../plugins';
 
 const CATALOG_URL =
-  'https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins-catalog.json';
+  'https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins-catalog.json';
 
 export default function PluginStore() {
   const [catalog, setCatalog] = useState(null);

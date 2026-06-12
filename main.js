@@ -704,6 +704,9 @@ function fetchUrlJson(url) {
       let data = '';
       res.on('data', (chunk) => { data += chunk; });
       res.on('end', () => {
+        if (res.statusCode !== 200) {
+          return reject(new Error(`HTTP ${res.statusCode} — file not found on GitHub`));
+        }
         try { resolve(JSON.parse(data)); } catch (e) { reject(new Error('Invalid JSON: ' + e.message)); }
       });
     }).on('error', reject);

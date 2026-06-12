@@ -13,9 +13,9 @@
       "size": "< 1 KB",
       "requiresRestart": false,
       "files": {
-        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/manifest.json",
-        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/renderer.js",
-        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/main.js"
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/example-plugin/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/example-plugin/renderer.js",
+        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/example-plugin/main.js"
       }
     },
     {
@@ -30,9 +30,9 @@
       "requiresRestart": true,
       "builtin": true,
       "files": {
-        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/manifest.json",
-        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/renderer.js",
-        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/main.js"
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/database/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/database/renderer.js",
+        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/database/main.js"
       }
     },
     {
@@ -47,8 +47,8 @@
       "requiresRestart": false,
       "builtin": true,
       "files": {
-        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/swagger/manifest.json",
-        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/swagger/renderer.js"
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/swagger/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/amit/plugins/swagger/renderer.js"
       }
     }
   ]
