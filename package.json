@@ -67,7 +67,6 @@
     ],
     "win": {
       "icon": "build/icon.ico",
-      "compression": "maximum",
       "target": [
         {
           "target": "nsis",
@@ -88,8 +87,7 @@
       "shortcutName": "API Manager",
       "deleteAppDataOnUninstall": false,
       "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico",
-      "compression": "lzma"
+      "uninstallerIcon": "build/icon.ico"
     },
     "mac": {
       "icon": "build/icon.png",
