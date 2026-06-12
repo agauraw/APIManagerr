@@ -1,0 +1,55 @@
+{
+  "version": "1",
+  "updatedAt": "2026-06-12",
+  "plugins": [
+    {
+      "id": "example-plugin",
+      "name": "Example Plugin",
+      "version": "1.0.0",
+      "description": "Demonstration plugin — shows how to build custom sidebar tabs and IPC handlers for API Manager.",
+      "icon": "🔌",
+      "author": "APIManager Team",
+      "tags": ["example", "demo"],
+      "size": "< 1 KB",
+      "requiresRestart": false,
+      "files": {
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/renderer.js",
+        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/example-plugin/main.js"
+      }
+    },
+    {
+      "id": "database",
+      "name": "Database Explorer",
+      "version": "1.0.0",
+      "description": "Connect to MySQL, PostgreSQL, and MongoDB. Query data, explore schemas, and manage databases.",
+      "icon": "🗄",
+      "author": "APIManager Team",
+      "tags": ["database", "sql", "mysql", "postgres", "mongodb"],
+      "size": "~ 8 MB",
+      "requiresRestart": true,
+      "builtin": true,
+      "files": {
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/renderer.js",
+        "main.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/database/main.js"
+      }
+    },
+    {
+      "id": "swagger",
+      "name": "Swagger / OpenAPI",
+      "version": "1.0.0",
+      "description": "Import collections from Swagger/OpenAPI specs and publish API documentation.",
+      "icon": "📋",
+      "author": "APIManager Team",
+      "tags": ["import", "export", "docs", "openapi"],
+      "size": "< 1 MB",
+      "requiresRestart": false,
+      "builtin": true,
+      "files": {
+        "manifest.json": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/swagger/manifest.json",
+        "renderer.js": "https://raw.githubusercontent.com/agauraw/APIManagerr/main/plugins/swagger/renderer.js"
+      }
+    }
+  ]
+}

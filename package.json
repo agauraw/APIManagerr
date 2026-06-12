@@ -36,6 +36,8 @@
     "appId": "com.gauraw.apimanager",
     "productName": "API Manager",
     "copyright": "Copyright © 2026 Gauraw",
+    "electronLanguages": ["en-US"],
+    "compression": "maximum",
     "directories": {
       "output": "release",
       "buildResources": "build"
@@ -44,27 +46,36 @@
       "dist/**/*",
       "main.js",
       "preload.js",
+      "plugins-catalog.json",
       "node_modules/**/*",
-      "!node_modules/*/{CHANGELOG.md,README.md,readme.md,readme}",
-      "!node_modules/*/{test,__tests__,tests,examples,example}",
+      "!node_modules/*/{CHANGELOG.md,README.md,readme.md,readme,LICENSE,license}",
+      "!node_modules/*/{test,__tests__,tests,examples,example,benchmark,benchmarks}",
+      "!node_modules/*/{*.d.ts,*.d.ts.map,*.flow}",
       "!node_modules/.bin",
+      "!node_modules/*/docs",
+      "!node_modules/*/doc",
       "!**/{.DS_Store,.git,.hg,.svn}",
-      "!**/{*.iml,*.orig,*.pyc}"
+      "!**/{*.iml,*.orig,*.pyc,*.map}",
+      "!node_modules/electron-builder",
+      "!node_modules/vite",
+      "!node_modules/@vitejs",
+      "!node_modules/tailwindcss",
+      "!node_modules/postcss",
+      "!node_modules/autoprefixer",
+      "!node_modules/concurrently",
+      "!node_modules/wait-on"
     ],
     "win": {
       "icon": "build/icon.ico",
+      "compression": "maximum",
       "target": [
         {
           "target": "nsis",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         },
         {
           "target": "portable",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         }
       ],
       "requestedExecutionLevel": "asInvoker"
@@ -77,7 +88,8 @@
       "shortcutName": "API Manager",
       "deleteAppDataOnUninstall": false,
       "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico"
+      "uninstallerIcon": "build/icon.ico",
+      "compression": "lzma"
     },
     "mac": {
       "icon": "build/icon.png",

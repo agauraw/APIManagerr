@@ -658,6 +658,94 @@ app.on('will-quit', () => {
   for (const c of mongoClients.values()) { try { c.close(); } catch {} }
 });
 
+// ─── Plugin Download / Install ────────────────────────────────────────────────
+
+function downloadFileFromUrl(url, dest) {
+  const ALLOWED_HOSTS = ['raw.githubusercontent.com', 'objects.githubusercontent.com'];
+  return new Promise((resolve, reject) => {
+    let parsed;
+    try { parsed = new URL(url); } catch { return reject(new Error('Invalid URL')); }
+    if (!ALLOWED_HOSTS.includes(parsed.hostname)) {
+      return reject(new Error('Only GitHub URLs are allowed'));
+    }
+    const file = fs.createWriteStream(dest);
+    const get = (targetUrl) => {
+      let p;
+      try { p = new URL(targetUrl); } catch { return reject(new Error('Invalid redirect URL')); }
+      https.get({ hostname: p.hostname, path: p.pathname + p.search, headers: { 'User-Agent': 'API-Manager/1.0' } }, (res) => {
+        if (res.statusCode === 301 || res.statusCode === 302) {
+          file.close();
+          fs.unlink(dest, () => {});
+          const loc = res.headers.location;
+          if (!loc) return reject(new Error('Redirect with no Location'));
+          return downloadFileFromUrl(loc, dest).then(resolve).catch(reject);
+        }
+        if (res.statusCode !== 200) {
+          file.close();
+          fs.unlink(dest, () => {});
+          return reject(new Error(`HTTP ${res.statusCode}`));
+        }
+        res.pipe(file);
+        file.on('finish', () => { file.close(); resolve(); });
+        res.on('error', (e) => { file.close(); fs.unlink(dest, () => {}); reject(e); });
+      }).on('error', (e) => { file.close(); fs.unlink(dest, () => {}); reject(e); });
+    };
+    get(url);
+  });
+}
+
+function fetchUrlJson(url) {
+  const ALLOWED_HOSTS = ['raw.githubusercontent.com'];
+  return new Promise((resolve, reject) => {
+    let parsed;
+    try { parsed = new URL(url); } catch { return reject(new Error('Invalid URL')); }
+    if (!ALLOWED_HOSTS.includes(parsed.hostname)) return reject(new Error('Only GitHub raw URLs allowed'));
+    https.get({ hostname: parsed.hostname, path: parsed.pathname + parsed.search, headers: { 'User-Agent': 'API-Manager/1.0' } }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try { resolve(JSON.parse(data)); } catch (e) { reject(new Error('Invalid JSON: ' + e.message)); }
+      });
+    }).on('error', reject);
+  });
+}
+
+ipcMain.handle('plugin:fetch-catalog', async (_event, url) => {
+  try { return await fetchUrlJson(url); }
+  catch (e) { return { error: e.message }; }
+});
+
+ipcMain.handle('plugin:install', async (_event, pluginEntry) => {
+  try {
+    const { id, files } = pluginEntry || {};
+    if (!id || !files || typeof files !== 'object') return { success: false, error: 'Invalid plugin entry' };
+    const safeId = id.replace(/[^a-zA-Z0-9_-]/g, '');
+    if (!safeId) return { success: false, error: 'Invalid plugin id' };
+    const pluginDir = path.join(getPluginsDir(), safeId);
+    fs.mkdirSync(pluginDir, { recursive: true });
+    for (const [filename, url] of Object.entries(files)) {
+      const safeFilename = path.basename(filename).replace(/[^a-zA-Z0-9._-]/g, '');
+      if (!safeFilename) continue;
+      await downloadFileFromUrl(url, path.join(pluginDir, safeFilename));
+    }
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+});
+
+ipcMain.handle('plugin:uninstall', async (_event, pluginId) => {
+  try {
+    const safeId = (pluginId || '').replace(/[^a-zA-Z0-9_-]/g, '');
+    if (!safeId) return { success: false, error: 'Invalid plugin id' };
+    const pluginDir = path.join(getPluginsDir(), safeId);
+    if (fs.existsSync(pluginDir)) fs.rmSync(pluginDir, { recursive: true, force: true });
+    return { success: true };
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+});
+
 // ─── Plugin System ────────────────────────────────────────────────────────────
 
 function getPluginsDir() {

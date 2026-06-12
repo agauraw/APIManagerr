@@ -58,6 +58,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     listExternal: () => ipcRenderer.invoke('plugin:list-external'),
     getRenderer: (id) => ipcRenderer.invoke('plugin:get-renderer', id),
     getPluginsDir: () => ipcRenderer.invoke('plugin:get-plugins-dir'),
+    fetchCatalog: (url) => ipcRenderer.invoke('plugin:fetch-catalog', url),
+    install: (pluginEntry) => ipcRenderer.invoke('plugin:install', pluginEntry),
+    uninstall: (id) => ipcRenderer.invoke('plugin:uninstall', id),
   },
 
   // Window controls
