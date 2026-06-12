@@ -1,0 +1,9 @@
+{
+  "id": "example-plugin",
+  "name": "Example Plugin",
+  "version": "1.0.0",
+  "icon": "🔌",
+  "description": "A minimal example showing how to build an external plugin with a custom sidebar tab.",
+  "renderer": "renderer.js",
+  "main": "main.js"
+}
